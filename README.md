@@ -385,3 +385,66 @@ Figure 13. The resulting map and trajectory of our method for a real corridor en
 
 Furthermore, the planned path is not smoothed in accordance with the robot’s kinematics model. This can result in the robot making frequent heading adjustments, leading to increased power consumption, longer travel times, and posing additional challenges to the simultaneous localization and mapping process. Future work will be dedicated to addressing these identified shortcomings.
 
+
+
+How to compile
+
+1. edit the file "src/dsvplanner/dsvplanner\include/dsvplanner/def.h"
+2. enable "#define NEW_METHOD" for running our method
+3. disable "#define NEW_METHOD" for running the original DSVP method
+4. we suggest set CLUSTERING_EPSILON = 2 for narrow environments and set CLUSTERING_EPSILON = 3 for spatious environments
+
+
+cd exploration
+catkin_make
+
+
+How to run
+
+launch the simulated environment from autonomous_exploration_development_environment  https://github.com/HongbiaoZ/autonomous_exploration_development_environment
+
+roslaunch vehicle_simulator system_indoor.launch
+
+
+run the exploration planner
+
+cd dsv_planner
+catkin_make
+source devel/setup.bash
+roslaunch dsvp_launch explore_indoor.launch
+
+
+DO NOT forget to edit the "src/utils/lkh_tsp_solver/resource/single.par" and revise the file path according to your system environment.
+
+
+PROBLEM_FILE = /home/ralab/Research/dsv_planner/src/utils/lkh_tsp_solver/resource/single.tsp
+OUTPUT_TOUR_FILE =/home/ralab/Research/dsv_planner/src/utils/lkh_tsp_solver/resource/single.txt
+
+
+Citing
+
+
+If you find this code useful in your work, please consider citing:
+
+
+@article{bao2024explore, 
+  title={Combining spatial clustering and tour planning for efficient full area exploration}, 
+  DOI={10.1017/S0263574724001085}, 
+  journal={Robotica}, a
+  uthor={Bao, Jiatong and Mamun, Sultan and Bao, Jiawei and Zhang, Wenbing and Yang, Yuequan and Song, Aiguo}, 
+  year={2024}, 
+  pages={1–19}
+}
+
+
+
+Acknowledgement
+
+
+The benchmark exploration dataset is from autonomous_exploration_development_environment.  https://github.com/HongbiaoZ/autonomous_exploration_development_environment
+
+
+
+Our planner code is based on DSVP.   https://github.com/HongbiaoZ/dsv_planner
+
+
